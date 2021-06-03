@@ -6,8 +6,11 @@ package it.polito.tdp.PremierLeague;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import it.polito.tdp.PremierLeague.model.Match;
 import it.polito.tdp.PremierLeague.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +42,7 @@ public class FXMLController {
     private TextField txtMinuti; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbMese"
-    private ComboBox<?> cmbMese; // Value injected by FXMLLoader
+    private ComboBox<Integer> cmbMese; // Value injected by FXMLLoader
 
     @FXML // fx:id="cmbM1"
     private ComboBox<?> cmbM1; // Value injected by FXMLLoader
@@ -52,12 +55,17 @@ public class FXMLController {
 
     @FXML
     void doConnessioneMassima(ActionEvent event) {
+    	LinkedList<Match> out= new LinkedList<Match>(model.connessioneMax());
     	
+    	for(Match m: out)
+    	{
+    		txtResult.appendText(m.toString());
+    	}
     }
 
     @FXML
     void doCreaGrafo(ActionEvent event) {
-    	
+    	model.creaGrafo(Integer.parseInt(txtMinuti.getText()),cmbMese.getValue());
     }
 
     @FXML
@@ -79,7 +87,7 @@ public class FXMLController {
     
     public void setModel(Model model) {
     	this.model = model;
-  
+    	cmbMese.getItems().addAll(1,2,3,4,5,6,7,8,9,10,11,12);
     }
     
     
